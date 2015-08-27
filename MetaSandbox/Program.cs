@@ -73,25 +73,27 @@ namespace MetaSandbox
 
         private static void ProjectFileTest()
         {
-            //var collection = new ProjectCollection();
-            //collection.DefaultToolsVersion = "4.0";
-            //var project = collection.LoadProject("myproject.csproj");
+            var success = WriteClass("MetaSandbox", "TestClass");
 
-            //// ... modify the project
-            //project.Save(); // Interestingly there is a Save() method
-
-
-            WriteClass("MetaSandbox", "TestClass");
-            AddClassToProject("TestClass");
+            if (success)
+                AddClassToProject("TestClass");
         }
 
-        private static void WriteClass(string classNamespace, string className)
+        private static bool WriteClass(string classNamespace, string className)
         {
             var classStr =
                 "using System;\nusing System.Collections.Generic;\nusing System.Linq;\nusing System.Text;\nusing System.Threading.Tasks;\n\nnamespace " +
                 classNamespace + "\n{\n\tclass " + className + "\n\t{\n\t}\n}";
-            File.WriteAllText(Path.Combine(BaseDir, className + ".cs"), classStr);
 
+            var path = Path.Combine(BaseDir, className + ".cs");
+
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, classStr);
+                return true;
+            }
+
+            return false;
         }
 
         private static void AddClassToProject(string className)
