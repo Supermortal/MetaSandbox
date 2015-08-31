@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IClassCreator.cs" />
-    <Compile Include="ClassCreator.cs" />
     <Compile Include="Concrete\DefaultClassCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
